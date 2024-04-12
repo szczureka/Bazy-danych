@@ -1,8 +1,10 @@
 -- 1.
 create database firma;
+use firma;
 
 -- 2. 
 create schema rozliczenia;
+use rozliczenia;
 
 -- 3.
 create table rozliczenia.pracownicy (
@@ -16,7 +18,7 @@ telefon INTEGER not null
 create table rozliczenia.godziny (
 id_godziny INTEGER not null primary key,
 data_a DATE not null,
-liczba_godzin INTEGER not null,
+liczba_godzin FLOAT not null,
 id_pracownika INTEGER not null
 );
 
@@ -24,7 +26,7 @@ create table rozliczenia.pensje (
 id_pensji INTEGER not null primary key,
 stanowisko VARCHAR(50) not null,
 kwota INTEGER not null,
-id_premii INTEGER not null
+id_premii INTEGER 
 );
 
 create table rozliczenia.premie (
@@ -60,14 +62,14 @@ values
 
 insert into rozliczenia.godziny (id_godziny, data_a, liczba_godzin, id_pracownika) 
 values 
-(1, '2024-04-01', 9, 1),
+(1, '2024-04-01', 9.25, 1),
 (2, '2024-04-02', 7, 2),
 (3, '2024-04-03', 8, 3),
-(4, '2024-04-04', 6, 4),
+(4, '2024-04-04', 6.5, 4),
 (5, '2024-04-05', 8, 5),
 (6, '2024-04-06', 7, 6),
 (7, '2024-04-07', 9, 7),
-(8, '2024-04-08', 7, 8),
+(8, '2024-04-08', 7.75, 8),
 (9, '2024-04-09', 8, 9),
 (10, '2024-04-10', 7, 10);
 
@@ -104,17 +106,16 @@ select nazwisko, adres from rozliczenia.pracownicy;
 -- 6.
 select 
 	DATEPART(weekday, data_a) as dzien_tygodnia,
-	DATANAME(month, data_a) as miesiac
+	DATEPART(month, data_a) as miesiac
 from rozliczenia.godziny
 
 -- 7.
+exec sp_rename 'rozliczenia.pensje.kwota', 'kwota_brutto', 'COLUMN';
 
 alter table rozliczenia.pensje
-    rename column kwota to kwota_brutto;
-
-alter table rozliczenia.pensje
-    add column kwota_netto INTEGER; 
-
+    add column kwota_netto FLOAT; 
 
 update rozliczenia.pensje
 set kwota_netto = kwota_brutto * 0.75; 
+
+select * from rozliczenia.pensje;

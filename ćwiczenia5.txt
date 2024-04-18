@@ -1,0 +1,228 @@
+-- 1.
+create database firma;
+use firma;
+
+
+-- 2.
+create schema ksiegowosc;
+use ksiegowosc;
+
+
+-- 3.
+create table ksiegowosc.pracownicy (
+id_pracownika INTEGER not null primary key,
+imie VARCHAR(50) not null,
+nazwisko VARCHAR(50) not null,
+adres VARCHAR(100) not null,
+telefon INTEGER not null
+);
+
+
+create table ksiegowosc.godziny (
+id_godziny INTEGER not null primary key,
+dataa DATE not null,
+liczba_godzin FLOAT not null,
+id_pracownika INTEGER not null
+);
+
+
+create table ksiegowosc.pensja (
+id_pensji INTEGER not null primary key,
+stanowisko VARCHAR(50) not null,
+kwota MONEY not null
+);
+
+
+create table ksiegowosc.premia (
+id_premii INTEGER not null primary key,
+rodzaj VARCHAR(50),
+kwota MONEY 
+);
+
+
+create table ksiegowosc.wynagrodzenia (
+id_wynagrodzenia INTEGER not null primary key,
+dataa DATE not null,
+id_pracownika INTEGER not null,
+id_godziny INTEGER not null,
+id_pensji INTEGER not null,
+id_premii INTEGER not null
+);
+
+
+alter table ksiegowosc.godziny
+add constraint fk_pracownicy
+foreign key (id_pracownika)
+references ksiegowosc.pracownicy(id_pracownika);
+
+alter table ksiegowosc.wynagrodzenia
+add constraint fk_id_pracownicy
+foreign key (id_pracownika)
+references ksiegowosc.pracownicy(id_pracownika);
+
+alter table ksiegowosc.wynagrodzenia
+add constraint fk_id_godziny
+foreign key (id_godziny)
+references ksiegowosc.godziny(id_godziny);
+
+alter table ksiegowosc.wynagrodzenia
+add constraint fk_id_pensji
+foreign key (id_pensji)
+references ksiegowosc.pensja(id_pensji);
+
+alter table ksiegowosc.wynagrodzenia
+add constraint fk_id_premii
+foreign key (id_premii)
+references ksiegowosc.premia(id_premii);
+
+-- 5.
+INSERT INTO ksiegowosc.pracownicy (id_pracownika, imie, nazwisko, adres, telefon)
+VALUES 
+    (1, 'Jan', 'Kowalski', 'ul. Szkolna 1', '423956789'),
+    (2, 'Anna', 'Nowak', 'ul. Słoneczna 2', '987654321'),
+    (3, 'Piotr', 'Wiśniewski', 'ul. Polna 3', '456123789'),
+    (4, 'Maria', 'Kowalczyk', 'ul. Ogrodowa 4', '789123456'),
+    (5, 'Tomasz', 'Lewandowski', 'ul. Leśna 5', '721654987'),
+    (6, 'Magdalena', 'Wójcik', 'ul. Zielona 6', '654789123'),
+    (7, 'Adam', 'Dąbrowski', 'ul. Brzozowa 7', '987321654'),
+    (8, 'Justyna', 'Lewandowska', 'ul. Lipowa 8', '159357246'),
+    (9, 'Michał', 'Kowal', 'ul. Rycerska 9', '369258147'),
+    (10, 'Agnieszka', 'Zielińska', 'ul. Kwiatowa 10', '753951852');
+SELECT * FROM ksiegowosc.pracownicy;
+
+INSERT INTO ksiegowosc.godziny (id_godziny, dataa, liczba_godzin, id_pracownika)
+VALUES 
+    (1, '2024-04-01', 175, 1),
+    (2, '2024-04-02', 120, 2),
+    (3, '2024-04-03', 110.5, 3),
+    (4, '2024-04-04', 153, 4),
+    (5, '2024-04-03', 200, 5),
+    (6, '2024-04-06', 196.25, 6),
+    (7, '2024-04-04', 95.5, 7),
+    (8, '2024-04-08', 135, 8),
+    (9, '2024-04-06', 165, 9),
+    (10, '2024-04-09', 129, 10);
+SELECT * FROM ksiegowosc.godziny;
+
+INSERT INTO ksiegowosc.pensja (id_pensji, stanowisko, kwota)
+VALUES 
+    (1, 'Kierownik', 9000),
+    (2, 'Księgowy', 4000),
+    (3, 'Sprzątacz', 900),
+    (4, 'Programista', 12000),
+    (5, 'Analityk', 9000),
+    (6, 'Kierownik', 11000),
+    (7, 'Sekretarka', 1600),
+    (8, 'Recepcjonista', 3000),
+    (9, 'Specjalista ds. marketingu', 8500),
+    (10, 'Handlowiec', 2500);
+SELECT * FROM ksiegowosc.pensja;
+
+INSERT INTO ksiegowosc.premia (id_premii, rodzaj, kwota)
+VALUES 
+    (1, 'Za wyjątkowe osiągnięcia', 1000),
+    (2, 'Za najwyższą sprzedaż', 1500),
+    (3, 'Za dobry wynik w pracy', 800),
+    (4, 'Za dobre osiągnięcia', 1200),
+    (5, NULL, NULL),
+    (6, 'Za udział w projekcie', 1300),
+    (7, 'Za dodatkową pracę', 900),
+    (8, NULL, NULL),
+    (9, NULL, NULL),
+    (10, 'Za pomoc w szkoleniu', 1100);
+SELECT * FROM ksiegowosc.premia;
+
+INSERT INTO ksiegowosc.wynagrodzenia (id_wynagrodzenia, dataa, id_pracownika, id_godziny, id_pensji, id_premii)
+VALUES 
+    (1, '2024-04-01', 1, 1, 1, 1),
+    (2, '2024-04-02', 2, 2, 2, 2),
+    (3, '2024-04-03', 3, 3, 3, 3),
+    (4, '2024-04-04', 4, 4, 4, 4),
+    (5, '2024-04-05', 5, 5, 5, 5),
+    (6, '2024-04-06', 6, 6, 6, 6),
+    (7, '2024-04-07', 7, 7, 7, 7),
+    (8, '2024-04-08', 8, 8, 8, 8),
+    (9, '2024-04-09', 9, 9, 9, 9),
+    (10, '2024-04-10', 10, 10, 10, 10);
+SELECT * FROM ksiegowosc.wynagrodzenia;
+
+-- 6a.
+SELECT id_pracownika, nazwisko FROM ksiegowosc.pracownicy;
+
+-- 6b.
+SELECT p.id_pracownika
+FROM ksiegowosc.wynagrodzenia p
+JOIN ksiegowosc.pensja pe ON p.id_pensji = pe.id_pensji
+WHERE pe.kwota > 1000;
+
+-- 6c.
+SELECT p.id_pracownika
+FROM ksiegowosc.wynagrodzenia p
+JOIN ksiegowosc.pensja pe ON p.id_pensji = pe.id_pensji
+LEFT JOIN ksiegowosc.premia pr ON p.id_premii = pr.id_premii
+WHERE pr.kwota IS NULL AND pe.kwota > 2000;
+
+-- 6d.
+SELECT * FROM ksiegowosc.pracownicy WHERE imie LIKE 'J%'; 
+
+-- 6e.
+SELECT * FROM ksiegowosc.pracownicy WHERE nazwisko LIKE '%n%' AND imie LIKE '%a';
+
+-- 6f.
+SELECT p.imie, p.nazwisko, g.liczba_godzin - 160 AS nadgodziny
+FROM ksiegowosc.pracownicy p
+JOIN ksiegowosc.godziny g ON p.id_pracownika = g.id_pracownika;
+
+-- 6g.
+SELECT p.imie, p.nazwisko
+FROM ksiegowosc.pracownicy p
+JOIN ksiegowosc.wynagrodzenia pe ON p.id_pracownika = pe.id_pracownika
+LEFT JOIN ksiegowosc.pensja w ON w.id_pensji = pe.id_pensji
+WHERE w.kwota BETWEEN 1500 AND 3000;
+
+-- 6h.
+SELECT p.imie, p.nazwisko
+FROM ksiegowosc.pracownicy p
+JOIN ksiegowosc.godziny g ON p.id_pracownika = g.id_pracownika
+JOIN ksiegowosc.wynagrodzenia w ON w.id_pracownika = g.id_pracownika
+LEFT JOIN ksiegowosc.premia pr ON w.id_premii = pr.id_premii
+WHERE (g.liczba_godzin > 160 ) AND pr.kwota IS NULL;
+
+-- 6i.
+SELECT p.id_pracownika, p.imie, p.nazwisko, pe.kwota, pe.stanowisko
+FROM ksiegowosc.pracownicy p
+JOIN ksiegowosc.wynagrodzenia w ON w.id_pracownika = p.id_pracownika
+JOIN ksiegowosc.pensja pe ON pe.id_pensji= w.id_pensji
+ORDER BY pe.kwota;
+
+-- 6j.
+SELECT p.id_pracownika, p.imie, p.nazwisko, pe.id_pensji, pe.kwota, pr.id_premii, pr.kwota
+FROM ksiegowosc.pracownicy p
+JOIN ksiegowosc.wynagrodzenia w ON p.id_pracownika = w.id_pracownika
+JOIN ksiegowosc.pensja pe ON pe.id_pensji = w.id_pensji
+LEFT JOIN ksiegowosc.premia pr ON pr.id_premii = w.id_premii
+ORDER BY pe.kwota DESC, pr.kwota DESC;
+
+-- 6k.
+SELECT stanowisko, COUNT(*) AS liczba_pracownikow
+FROM ksiegowosc.pensja
+GROUP BY stanowisko;
+
+-- 6l.
+SELECT stanowisko, 
+       AVG(kwota) AS srednia_placa, 
+       MIN(kwota) AS minimalna_placa, 
+       MAX(kwota) AS maksymalna_placa
+FROM ksiegowosc.pensja 
+WHERE stanowisko LIKE 'Kierownik'
+GROUP BY stanowisko;
+
+-- 6m.
+SELECT SUM(kwota) AS suma_wynagrodzen
+FROM ksiegowosc.pensja;
+
+
+-- 6f.
+SELECT stanowisko, SUM(kwota) AS suma_wynagrodzen
+FROM ksiegowosc.pensja
+GROUP BY stanowisko;

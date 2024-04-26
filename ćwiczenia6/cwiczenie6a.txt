@@ -1,0 +1,24 @@
+Zadanie 1
+
+id_produktu -> nazwa_produktu, cena_produktu, VAT
+id_klienta -> nazwa_klienta, data_zamowienia, id_produktu, ilość
+cena_produktu -> suma_netto, ilość
+suma_brutto -> suma_netto, VAT
+
+Zadanie 2
+
+zamowienia:
+id_produktu, id_klienta, data_zamowienia 
+id_produktu, nazwa_klienta, data_zamowienia
+nazwa_produktu, id_klienta, data_zamowienia
+nazwa_produktu, nazwa_klienta, data_zamowienia
+
+Zadanie 3
+
+id_pomieszczenia -> id_budynktu, numer_pomieszczenia, powierzchnia, liczba_okien, liczba_drzwi
+id_budynku -> ulica, miasto, kod_pocztowy
+kod_pocztowy -> miasto, ulica 
+
+pomieszczenia:
+id_budynku, numer_pomieszczenia
+id_pomieszczenia

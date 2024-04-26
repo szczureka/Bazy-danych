@@ -39,7 +39,7 @@ ORDER BY LEN(d_nazwisko) DESC;
 
 -- d.
 SELECT p.*, HASHBYTES('MD5', CONVERT(VARCHAR, pn.kwota)) AS pensja_md5
---algorytm MD5, konwersja pn.kwota na varchar bo algorytm wymaga varchar
+--algorytm MD5, zamiana kwota na varchar bo algorytm wymaga varchar
 FROM ksiegowosc.pracownicy p
 JOIN ksiegowosc.wynagrodzenia w ON w.id_pracownika=p.id_pracownika
 JOIN ksiegowosc.pensja pn ON pn.id_pensji = w.id_pensji;

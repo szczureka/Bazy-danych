@@ -54,7 +54,7 @@ LEFT JOIN ksiegowosc.premia pr ON w.id_premii = pr.id_premii;
 -- f.
 SELECT 
 CONCAT('Pracownik ',p.imie,' ',p.nazwisko,', w dniu ', 
-CONVERT(VARCHAR, g.dataa, 104),' otrzymał pensję całkowitą na kwotę ', 
+g.dataa,' otrzymał pensję całkowitą na kwotę ', 
 (pn.kwota+pr.kwota),' zł, gdzie wynagrodzenie zasadnicze wynosiło: ',pn.kwota, ' zł, premia: ',
 COALESCE(pr.kwota, 0), ' zł, nadgodziny: ',(g.liczba_godzin - 160), 'h')
 AS raport

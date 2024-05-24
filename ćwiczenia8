@@ -1,0 +1,50 @@
+-- 1.
+USE AdventureWorks2019;
+
+SELECT * FROM AdventureWorks2019.Person.Person;
+SELECT * FROM AdventureWorks2019.HumanResources.EmployeePayHistory;
+
+WITH stawkapracownika (id, imie, nazwisko, stawka)
+AS(
+	SELECT p.BusinessEntityID, p.FirstName, p.LastName, e.Rate
+	FROM AdventureWorks2019.Person.Person p
+	INNER JOIN AdventureWorks2019.HumanResources.EmployeePayHistory e
+	ON p.BusinessEntityID = e.BusinessEntityID
+)
+SELECT * INTO TempEmployeeInfo FROM stawkapracownika;
+SELECT * FROM TempEmployeeInfo; 
+
+-- 2.
+USE AdventureWorksLT2019;
+
+ SELECT * FROM SalesLT.SalesOrderHeader;
+ SELECT * FROM SalesLT.Customer;
+
+ WITH przychodyfirmy (CompanyContact, Revenue)
+ AS(
+	SELECT CONCAT(CompanyName,' (',FirstName,' ',LastName,')'),TotalDue
+	FROM SalesLT.Customer c
+	INNER JOIN SalesLT.SalesOrderHeader s
+	ON c.CustomerID=s.CustomerID
+)
+SELECT * FROM przychodyfirmy; 
+
+-- 3.
+USE AdventureWorksLT2019
+
+SELECT * FROM SalesLT.ProductCategory;
+SELECT * FROM SalesLT.SalesOrderDetail;
+SELECT * FROM SalesLT.Product;
+
+WITH wartoscproduktow (Category, SalesValue)
+AS(
+	SELECT c.Name, d.UnitPrice
+	FROM SalesLT.Product p
+	INNER JOIN SalesLT.ProductCategory c
+	ON p.ProductCategoryID=C.ProductCategoryID
+	INNER JOIN SalesLT.SalesOrderDetail d
+	ON p.ProductID=d.ProductID
+)
+SELECT Category, SUM(SalesValue) AS SalesValue
+FROM wartoscproduktow
+GROUP BY Category;

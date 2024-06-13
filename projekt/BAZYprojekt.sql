@@ -17,7 +17,7 @@ CREATE TABLE GeoPietro (id_pietro INT PRIMARY KEY, id_epoka INT, nazwa_pietro VA
     FOREIGN KEY (id_epoka) REFERENCES GeoEpoka(id_epoka));
 
 
---wype³nienie tabel danymi 
+--wypeÂ³nienie tabel danymi 
 INSERT INTO GeoEon(id_eon, nazwa_eon)
 VALUES (1, 'Fanerozoik');
 
@@ -29,7 +29,7 @@ VALUES
 
 INSERT INTO GeoOkres(id_okres, id_era, nazwa_okres)
 VALUES
-(1, 1, 'Czwartorzêd'),
+(1, 1, 'CzwartorzÃªd'),
 (2, 1, 'Neogen'),
 (3, 1, 'Paleogen'),
 (4, 2, 'Kreda'),
@@ -48,29 +48,29 @@ VALUES
 (5, 3, 'Oligocen'),
 (6, 3, 'Eocen'),
 (7, 3, 'Paleocen'),
-(8, 4, 'PóŸna (Górna)'),
+(8, 4, 'PÃ³Å¸na (GÃ³rna)'),
 (9, 4, 'Wczesna (Dolna)'),
-(10, 5, 'PóŸna (Górna)'),
-(11, 5, 'Œrodkowa'),
+(10, 5, 'PÃ³Å¸na (GÃ³rna)'),
+(11, 5, 'Å’rodkowa'),
 (12, 5, 'Wczesna (Dolna)'),
-(13, 6, 'PóŸna (Górna)'),
-(14, 6, 'Œrodkowa'),
+(13, 6, 'PÃ³Å¸na (GÃ³rna)'),
+(14, 6, 'Å’rodkowa'),
 (15, 6, 'Wczesna (Dolna)'),
-(16, 7, 'Górny'),
+(16, 7, 'GÃ³rny'),
 (17, 7, 'Dolny'),
-(18, 8, 'Górny'),
+(18, 8, 'GÃ³rny'),
 (19, 8, 'Dolny'),
-(20, 9, 'Górny'),
-(21, 9, 'Œrodkowy'),
+(20, 9, 'GÃ³rny'),
+(21, 9, 'Å’rodkowy'),
 (22, 9, 'Dolny');
 
---tabela skrócona, ¿eby bylo 68 rekordów
+--tabela skrÃ³cona, Â¿eby bylo 68 rekordÃ³w
 INSERT INTO GeoPietro(id_pietro, id_epoka, nazwa_pietro)
 VALUES
 (1, 1, 'Megalaj'),
 (2, 1, 'Nortgryp'),
 (3, 1, 'Grenland'),
-(4, 2, 'PóŸny'),
+(4, 2, 'PÃ³Å¸ny'),
 (5, 2, 'Chiban'),
 (6, 2, 'Kalabr'),
 (7, 2, 'Gelas'),
@@ -80,7 +80,7 @@ VALUES
 (11, 4, 'Torton'),
 (12, 4, 'Serrawal'),
 (13, 4, 'Lang'),
-(14, 4, 'Burdyga³'),
+(14, 4, 'BurdygaÂ³'),
 (15, 4, 'Akwitan'),
 (16, 5, 'Szat'),
 (17, 5, 'Rupel'),
@@ -101,7 +101,7 @@ VALUES
 (32, 9, 'Apt'),
 (33, 9, 'Barrem'),
 (34, 9, 'Hoteryw'),
-(35, 9, 'Walan¿yn'),
+(35, 9, 'WalanÂ¿yn'),
 (36, 9, 'Berrias'),
 (37, 10, 'Tyton'),
 (38, 10, 'Kimeryd'),
@@ -127,7 +127,7 @@ VALUES
 (58, 17, 'Artinsk'),
 (59, 17, 'Sakmar'),
 (60, 17, 'Assel'),
-(61, 18, 'G¿el'),
+(61, 18, 'GÂ¿el'),
 (62, 18, 'Kasimow'),
 (63, 18, 'Moskow'),
 (64, 18, 'Baszkir'),
@@ -136,7 +136,7 @@ VALUES
 (67, 19, 'Turnej'),
 (68, 20, 'Famen');
 
---tworzenie GeoTabela (oparta na danych ze schematu p³atka œniegu)
+--tworzenie GeoTabela (oparta na danych ze schematu pÂ³atka Å“niegu)
 CREATE TABLE GeoTabela(id_pietro INT PRIMARY KEY, nazwa_pietro VARCHAR(80), id_epoka INT, nazwa_epoka VARCHAR(80), id_okres INT, nazwa_okres VARCHAR(80), id_era INT, nazwa_era VARCHAR(80),
 id_eon INT, nazwa_eon VARCHAR(80))
 INSERT INTO GeoTabela
@@ -148,7 +148,7 @@ JOIN GeoEon GEO ON GER.id_eon = GEO.id_eon;
 
 SELECT * FROM GeoTabela;
 
--- tabele do testów wydajnoœci
+-- tabele do testÃ³w wydajnoÅ“ci
 CREATE TABLE Dziesiec (cyfra INT PRIMARY KEY);
 INSERT INTO Dziesiec(cyfra) VALUES 
 	(0), (1), (2), (3), (4), (5), (6), (7), (8), (9);
@@ -169,8 +169,8 @@ JOIN Dziesiec a5 ON a4.cyfra >= 0
 JOIN Dziesiec a6 ON a5.cyfra >= 0;
 SELECT * FROM Milion;
 
--- KRYTERIA TESTÓW
--- bez indeksów
+-- KRYTERIA TESTÃ“W
+-- bez indeksÃ³w
 -- 1ZL
 SELECT COUNT(*)
 FROM Milion 
